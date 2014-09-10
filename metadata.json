@@ -2,7 +2,7 @@
   "name": "puppet-rdorepo",
   "version": "0.1.0",
   "author": "yguenane",
-  "summary": "A Puppet module to install the RDO repository",
+  "summary": "A Puppet module to manage the RDO repository",
   "license": "Apache 2.0",
   "source": "https://github.com/Mylezeem/puppet-rdorepo",
   "project_page": "https://github.com/Mylezeem/puppet-rdorepo",
@@ -10,7 +10,7 @@
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
-      "version_range": ">= 1.0.0"
+      "version_range": ">= 4.3.2"
     }
   ]
 }

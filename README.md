@@ -1,4 +1,9 @@
-# rdorepo
+# RDO Repository
+
+[![Build Status](https://api.travis-ci.org/Mylezeem/puppet-rdorepo.svg?branch=master)](https://travis-ci.org/Mylezeem/puppet-rdorepo)
+[![Puppet Forge](http://img.shields.io/puppetforge/v/yguenane/rdorepo.svg)](https://forge.puppetlabs.com/yguenane/rdorepo)
+[![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
+
 
 #### Table of Contents
 
@@ -6,74 +11,83 @@
 2. [Module Description - What the module does and why it is useful](#module-description)
 3. [Setup - The basics of getting started with rdorepo](#setup)
     * [What rdorepo affects](#what-rdorepo-affects)
-    * [Setup requirements](#setup-requirements)
     * [Beginning with rdorepo](#beginning-with-rdorepo)
 4. [Usage - Configuration options and additional functionality](#usage)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
+5. [Limitations](#limitations)
+6. [Contributors](#contributors)
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+A Puppet module to manage the RDO repository in order to access the OpenStack
+packages in an Enterprise Linux derivative operating system.
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+This module simply allows one to enable/disable the use of the RDO repository
+on an Enterprise Linux derivative operating system
 
 ## Setup
 
 ### What rdorepo affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+* rdo-release repo file (/etc/yum.repos.d/rdo-release.repo)
+* the corresponding GPG keys
 
 ### Beginning with rdorepo
 
-The very basic steps needed for a user to get the module up and running.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+`include ::rdorepo` is enough to enable the RDO repository.
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+All interaction with the rdorepo module can do be done through the main rdorepo class.
+This means you can simply toggle the options in `::rdorepo` to have full functionality of the module.
+
+###I just want the RDO repository to be enabled, what's the minimum I need?
+
+```puppet
+include '::rdorepo'
+```
+
+###I want to specify the release for which I want the packages for
+
+```puppet
+class { '::rdorepo':
+  release => 'havana',
+}
+```
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+####Public Classes
+
+* rdorepo: Main class
+
+###Parameters
+
+The following parameters are available in the rdorepo module:
+
+####`enabled`
+
+Whether the RDO repository should be enabled.
+
+####`release`
+
+The release name to get the OpenStack packages for.
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+The module has been tested on:
 
-## Development
+* RedHat Enterprise Linux 6/7
+* CentOS 6/7
+* Fedora 19/20
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+The module has been tested for the OpenStack releases :
 
-## Release Notes/Contributors/Etc **Optional**
+* icehouse
+* havana
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+## Contributors
+
+The list of contributors can be found at: [https://github.com/Mylezeem/puppet-rdorepo/graphs/contributors](https://github.com/Mylzeem/puppet-rdorepo/graphs/contributors)
