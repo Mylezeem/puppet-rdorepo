@@ -48,16 +48,17 @@ class rdorepo (
     'Fedora' => 'fedora',
   }
 
-  $blabla = $::operatingsystemrelease ? {
-    /6.[0-9]/ => '6',
-    /7.[0-9]/ => '7',
-    default   => '$releasever',
+  $os_ver = $::operatingsystem ? {
+    'RedHat' => $::operatingsystemmajrelease,
+    'CentOS' => $::operatingsystemmajrelease,
+    'Fedora' => '$releasever',
   }
 
   yumrepo { "openstack-${release}" :
-    name                => "OpenStack ${release} Repository",
-    baseurl             => "http://repos.fedorapeople.org/repos/openstack/openstack-${release}/${repo}-${blabla}/",
-    gpgkey              => "/etc/pki/rpm-gpg/RPM-GPG-KEY-RDO-${release}",
+    target              => 'rdo-release.repo',
+    descr               => "OpenStack ${release} Repository",
+    baseurl             => "http://repos.fedorapeople.org/repos/openstack/openstack-${release}/${repo}-${os_ver}/",
+    gpgkey              => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-RDO-${release}",
     gpgcheck            => 1,
     enabled             => bool2num($enabled),
     skip_if_unavailable => 0,
@@ -69,7 +70,7 @@ class rdorepo (
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
-    source => "pupet:///modules/rdorepo/RPM-GPG-KEY-RDO-${release}"
+    source => "puppet:///modules/rdorepo/RPM-GPG-KEY-RDO-${release}"
   }
 
   rdorepo::rpm_gpg_key { "RPM-GPG-KEY-RDO-${release}" :
