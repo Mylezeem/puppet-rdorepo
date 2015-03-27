@@ -1,18 +1,27 @@
-require 'rubygems'
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+#
+# Managed by modulesync
+# Configs https://github.com/Mylezeem/mylezeem-msync
+#
 require 'puppetlabs_spec_helper/rake_tasks'
+require 'puppet_blacksmith/rake_tasks'
 require 'puppet-lint/tasks/puppet-lint'
-PuppetLint.configuration.send('disable_80chars')
-PuppetLint.configuration.ignore_paths = ["spec/**/*.pp", "pkg/**/*.pp"]
+require 'puppet-syntax/tasks/puppet-syntax'
 
-desc "Validate manifests, templates, and ruby files"
-task :validate do
-  Dir['manifests/**/*.pp'].each do |manifest|
-    sh "puppet parser validate --noop #{manifest}"
-  end
-  Dir['spec/**/*.rb','lib/**/*.rb'].each do |ruby_file|
-    sh "ruby -c #{ruby_file}" unless ruby_file =~ /spec\/fixtures/
-  end
-  Dir['templates/**/*.erb'].each do |template|
-    sh "erb -P -x -T '-' #{template} | ruby -c"
+TDIR = File.expand_path(File.dirname(__FILE__))
+NAME = "yguenane-#{File.basename(TDIR).split('-')[1]}"
+
+exclude_path = ["spec/**/*","pkg/**/*","vendor/**/*"]
+
+PuppetLint.configuration.fail_on_warnings = true
+PuppetLint.configuration.send('disable_80chars')
+PuppetLint.configuration.ignore_paths = exclude_path
+PuppetSyntax.exclude_paths = exclude_path
+
+namespace :module do
+  desc "Build #{NAME} module (in a clean env, for puppetforge)"
+  task :build do
+    exec "rsync -rv --exclude-from=#{TDIR}/.forgeignore . /tmp/#{NAME};cd /tmp/#{NAME};puppet module build"
   end
 end
