@@ -66,11 +66,11 @@ class rdorepo (
   }
 
   file { "/etc/pki/rpm-gpg/RPM-GPG-KEY-RDO-${release}" :
-    ensure => present,
+    ensure => file,
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
-    source => "puppet:///modules/rdorepo/RPM-GPG-KEY-RDO-${release}"
+    source => "puppet:///modules/rdorepo/RPM-GPG-KEY-RDO-${release}",
   }
 
   rdorepo::rpm_gpg_key { "RPM-GPG-KEY-RDO-${release}" :
