@@ -1,7 +1,8 @@
 # RDO Repository
 
 [![Build Status](https://api.travis-ci.org/Mylezeem/puppet-rdorepo.svg?branch=master)](https://travis-ci.org/Mylezeem/puppet-rdorepo)
-[![Puppet Forge](http://img.shields.io/puppetforge/v/yguenane/rdorepo.svg)](https://forge.puppetlabs.com/yguenane/rdorepo)
+[![Puppet Forge Version](http://img.shields.io/puppetforge/v/yguenane/rdorepo.svg)](https://forge.puppetlabs.com/yguenane/rdorepo)
+[![Puppet Forge Downloads](http://img.shields.io/puppetforge/dt/yguenane/rdorepo.svg)](https://forge.puppetlabs.com/yguenane/rdorepo)
 [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
 
